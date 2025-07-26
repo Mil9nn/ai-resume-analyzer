@@ -3,7 +3,7 @@ import type { Route } from "./+types/home";
 import { resumes } from "constants/index";
 import ResumeCard from "~/components/ResumeCard";
 import { usePuterStore } from "~/lib/puter";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { useEffect } from "react";
 
 export function meta({}: Route.MetaArgs) {
@@ -25,8 +25,8 @@ export default function Home() {
 
   return (
     <main className="bg-[url('/images/bg-main.svg')] bg-cover">
+      <Navbar />
       <section className="main-section">
-        <Navbar />
         <div className="page-heading">
           <h1>Track your Applications and Resume Ratings</h1>
           <h2>Review your submissions and check AI-powered feedback.</h2>
