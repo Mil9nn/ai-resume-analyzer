@@ -2,7 +2,7 @@ import React from 'react'
 import ScoreGauge from './ScoreGauge'
 import ScoreBadge from './ScoreBadge';
 
-const Category = ({ title, score }) => {
+const Category = ({ title, score }: {title: string, score: number}) => {
     const textColor = score >= 80 ? 'text-green-500' : score >= 50 ? 'text-yellow-500' : 'text-red-500';
     return (
         <div className="resume-summary">
