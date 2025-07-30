@@ -1,4 +1,4 @@
-import { prepareInstructions } from 'constants/index';
+import { AIResponseFormat, prepareInstructions } from 'constants/index';
 import { useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router';
 import FileUploader from '~/components/FileUploader';
@@ -42,17 +42,17 @@ const upload = () => {
     const data = {
       id: uuid,
       resumePath: uploadedFile.path,
-      imagePath: uploadedFile.path,
+      imagePath: uploadedImage.path,
       companyName, jobTitle, jobDescription,
       feedback: '',
     }
-    await kv.set(`resume: ${uuid}`, JSON.stringify(data));
+    await kv.set(`resume:${uuid}`, JSON.stringify(data));
 
     setStatusText('Analyzing ...');
 
     const feedback = await ai.feedback(
       uploadedFile.path,
-      prepareInstructions({ jobTitle, jobDescription }),
+      prepareInstructions({ jobTitle, jobDescription, AIResponseFormat}),
     )
 
     if (!feedback) return setStatusText('Error: Failed to analyze resume');
@@ -90,12 +90,14 @@ const upload = () => {
             {isProcessing ? (
               <>
                 <h2>{statusText}</h2>
-                <img src="/images/resume-scan.gif" className="w-full" />
+                <div className=" w-96 h-96 object-fit">
+                  <img src="/images/resume-scan.gif" />
+                </div>
               </>
             ) : (
               <>
                 <h1>Smart feedback for your dream job</h1>
-                <h2>Drop your resume for an ATS score and improvement tips</h2>
+                <p className='text-gray-500'>Drop your resume for an ATS score and improvement tips</p>
               </>
             )}
             {!isProcessing && (

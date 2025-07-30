@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import ATS from "~/components/ATS";
 import Details from "~/components/Details";
@@ -12,7 +12,7 @@ const Resume = () => {
 
   const [imageUrl, setimageUrl] = useState("");
   const [resumeUrl, setresumeUrl] = useState("");
-  const [feedback, setfeedback] = useState("");
+  const [feedback, setfeedback] = useState<Feedback | null>(null);
 
   const navigate = useNavigate();
 
@@ -25,7 +25,7 @@ const Resume = () => {
 
   useEffect(() => {
     const loadResume = async () => {
-      const resume = await kv.get(`/resume:${id}`);
+      const resume = await kv.get(`resume:${id}`);
 
       if (!resume) return;
 
@@ -45,12 +45,11 @@ const Resume = () => {
       setimageUrl(imageUrl);
 
       setfeedback(data.feedback);
+      console.log(data.feedback);
     };
 
     loadResume();
   }, [id]);
-
-  console.log("feedback", feedback);
 
   return (
     <main className="!p-0">
@@ -77,8 +76,8 @@ const Resume = () => {
           {feedback ? (
               <div className="flex flex-col gap-8 animate-in fade-in duration-1000">
                 <Summary feedback={feedback} />
-                <ATS  />
-                <Details />
+                <ATS score={feedback.ATS.score || 0} suggestions={feedback.ATS.tips || []} />
+                <Details feedback={feedback} />
               </div>
             ) : (
               <img src="/images/resume-scan-2.gif" alt="resume-scan-gif" className="w-full" />
