@@ -41,11 +41,11 @@ const ResumeCard = ({ resume }: { resume: Resume }) => {
         </div>
       </div>
       {resumeUrl && <div className="gradient-border animate-in fade-in duration-1000">
-        <div className="w-full h-full">
+        <div className="w-fit h-fit">
           <img
             src={resumeUrl}
             alt="resume"
-            className="w-full h-full object-contain rounded-2xl"
+            className="w-fit h-fit object-contain rounded-2xl"
           />
         </div>
       </div>}

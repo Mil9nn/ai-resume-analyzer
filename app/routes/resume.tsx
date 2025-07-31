@@ -60,7 +60,7 @@ const Resume = () => {
   }, [id]);
 
   return (
-    <main className="!p-0">
+    <main className="relative !p-0">
       <nav className="resume-nav">
         <Link to="/" className="back-button">
           <img src="/icons/back.svg" alt="back-icon" className="w-2.5 h-2.5" />
